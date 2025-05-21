@@ -1,6 +1,8 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import lombok.Getter;
@@ -12,6 +14,7 @@ import lombok.Setter;
 public class PdfFile {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String fileName;
@@ -63,6 +66,7 @@ public class PdfFile {
 		this.file = file;
 		this.fileType = fileType;
 	}
+	
 	
 	
 	
