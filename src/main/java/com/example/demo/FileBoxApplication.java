@@ -8,8 +8,7 @@ public class FileBoxApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FileBoxApplication.class, args);
-		System.out.print(true);
-
+		
 	}
 
 }
