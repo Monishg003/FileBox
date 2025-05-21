@@ -29,7 +29,7 @@ public class FileController {
 			PdfFile pdf = new PdfFile();
 			pdf.setFileName(file.getOriginalFilename());
 			pdf.setFile(file.getBytes());
-			pdf.setContentType(file.getContentType());
+			pdf.setFileType(file.getContentType());
 			fileRepo.save(pdf);
 			return ResponseEntity.ok("File uploaded with ID: " + pdf.getId());
 		} catch (IOException e) {
@@ -44,7 +44,7 @@ public class FileController {
 
 		if (pdfFileOptional.isPresent()) {
 			PdfFile pdf = pdfFileOptional.get();
-			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getContentType()))
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getFileType()))
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
 					.body(pdf.getFile());
 		} else {
@@ -57,7 +57,7 @@ public class FileController {
 		Optional<PdfFile> pdfFileOptional = fileRepo.findById(id);
 		if (pdfFileOptional.isPresent()) {
 			PdfFile pdf = pdfFileOptional.get();
-			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getContentType()))
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getFileType()))
 					.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + pdf.getFileName() + "\"")
 					.body(pdf.getFile());
 		} else {

@@ -19,7 +19,7 @@ public class PdfFile {
 	@Lob
 	private byte[] file;
 	
-	private String contentType;
+	private String fileType;
 
 	public int getId() {
 		return id;
@@ -37,12 +37,12 @@ public class PdfFile {
 		return fileName;
 	}
 
-	public String getContentType() {
-		return contentType;
+	public String getFileType() {
+		return fileType;
 	}
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
+	public void setFileType(String contentType) {
+		this.fileType = contentType;
 	}
 
 	public void setFileName(String fileName) {
@@ -57,12 +57,11 @@ public class PdfFile {
 		this.file = file;
 	}
 
-	public PdfFile(int id, String fileName, byte[] file, String contentType) {
-		super();
+	public PdfFile(int id, String fileName, byte[] file, String fileType) {
 		this.id = id;
 		this.fileName = fileName;
 		this.file = file;
-		this.contentType = contentType;
+		this.fileType = fileType;
 	}
 	
 	
