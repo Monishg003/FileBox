@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ import com.example.demo.Repository.FileRepository;
 
 @RestController
 public class FileController {
-	
+
 	@Autowired
 	private FileRepository fileRepo;
 
@@ -38,22 +37,32 @@ public class FileController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	 @GetMapping("/download/{id}")
-	    public ResponseEntity<byte[]> downloadPdf(@PathVariable int id) {
-	        Optional<PdfFile> pdfFileOptional = fileRepo.findById(id);
 
-	        if (pdfFileOptional.isPresent()) {
-	            PdfFile pdf = pdfFileOptional.get();
-	            return ResponseEntity.ok()
-	                    .contentType(MediaType.parseMediaType(pdf.getContentType()))
-	                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
-	                    .body(pdf.getFile());
-	        } else {
-	            return ResponseEntity.notFound().build();
-	        }
-	    }
-	
-	
-	
+	@GetMapping("/download/{id}")
+	public ResponseEntity<byte[]> downloadPdf(@PathVariable int id) {
+		Optional<PdfFile> pdfFileOptional = fileRepo.findById(id);
+
+		if (pdfFileOptional.isPresent()) {
+			PdfFile pdf = pdfFileOptional.get();
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getContentType()))
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
+					.body(pdf.getFile());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@GetMapping("/view/{id}")
+	public ResponseEntity<byte[]> viewPdf(@PathVariable int id) {
+		Optional<PdfFile> pdfFileOptional = fileRepo.findById(id);
+		if (pdfFileOptional.isPresent()) {
+			PdfFile pdf = pdfFileOptional.get();
+			return ResponseEntity.ok().contentType(MediaType.parseMediaType(pdf.getContentType()))
+					.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + pdf.getFileName() + "\"")
+					.body(pdf.getFile());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 }
